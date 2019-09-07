@@ -123,7 +123,7 @@ class BalloonDataset(utils.Dataset):
             # shape_attributes (see json format above)
             # The if condition is needed to support VIA versions 1.x and 2.x.
             if type(a['regions']) is dict:
-                polygons = [r['shape_attributes'] for r in a['regions'].values()]
+                polygons = [r['shape_attributes'] for r in a['regions'].values()] ### the list constituting dict
             else:
                 polygons = [r['shape_attributes'] for r in a['regions']] 
 
@@ -139,7 +139,7 @@ class BalloonDataset(utils.Dataset):
                 image_id=a['filename'],  # use file name as a unique image id
                 path=image_path,
                 width=width, height=height,
-                polygons=polygons)
+                polygons=polygons)  ######
 
     def load_mask(self, image_id):
         """Generate instance masks for an image.
@@ -160,7 +160,7 @@ class BalloonDataset(utils.Dataset):
                         dtype=np.uint8)
         for i, p in enumerate(info["polygons"]):
             # Get indexes of pixels inside the polygon and set them to 1
-            rr, cc = skimage.draw.polygon(p['all_points_y'], p['all_points_x'])
+            rr, cc = skimage.draw.polygon(p['all_points_y'], p['all_points_x'])  ##### p['all_points_y'] is a list
             mask[rr, cc, i] = 1
 
         # Return mask, and array of class IDs of each instance. Since we have
@@ -196,7 +196,7 @@ def train(model):
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
                 epochs=30,
-                layers='heads')
+                layers='heads')  #########
 
 
 def color_splash(image, mask):

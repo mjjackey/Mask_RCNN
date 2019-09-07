@@ -279,8 +279,8 @@ class Dataset(object):
             "source": source,
             "path": path,
         }
-        image_info.update(kwargs)
-        self.image_info.append(image_info)
+        image_info.update(kwargs)  #### update a dict with an iterable of key/value pairs
+        self.image_info.append(image_info)  ## add the new component of list
 
     def image_reference(self, image_id):
         """Return a link to the image in its source Website or details about
